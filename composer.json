@@ -1,0 +1,39 @@
+{
+    "name": "m1guelpf/sqreen-api",
+    "description": "PHP Client for the Sqreen API",
+    "keywords": [
+        "sqreen",
+        "sqreen-api",
+        "m1guelpf"
+    ],
+    "homepage": "https://github.com/m1guelpf/php-sqreen-api",
+    "license": "MPL-2.0",
+    "authors": [
+        {
+            "name": "Miguel Piedrafita",
+            "email": "soy@miguelpiedrafita.com",
+            "homepage": "https://miguelpiedrafita.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : "^5.5|^7.0",
+        "guzzlehttp/guzzle":"^6.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "M1guelpf\\SqreenAPI\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "M1guelpf\\SqreenAPI\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    }
+}
