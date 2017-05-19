@@ -65,7 +65,7 @@ class Sqreen
      *
      * @return array
      */
-    public function email(string $email)
+    public function email($email)
     {
         return $this->get('/emails/'.$email);
     }
@@ -75,7 +75,7 @@ class Sqreen
      *
      * @return array
      */
-    public function ip(string $ip)
+    public function ip($ip)
     {
         return $this->get('/ips/'.$ip);
     }
