@@ -17,7 +17,7 @@ class Sqreen
      * @param string             $apiKey
      * @param string             $apiVersion
      */
-    public function __construct($apiKey = null, $apiVersion = 'v1')
+    public function __construct($apiToken = null, $apiVersion = 'v1')
     {
         $this->client = new Client();
 
