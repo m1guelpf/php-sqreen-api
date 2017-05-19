@@ -23,7 +23,7 @@ class Sqreen
 
         $this->apiToken = $apiToken;
 
-        $this->baseUrl = 'https://api.sqreen.io'.$apiVersion.'/api';
+        $this->baseUrl = 'https://api.sqreen.io'.$apiVersion;
     }
 
     /**
