@@ -14,7 +14,7 @@ class Sqreen
 
     /**
      * @param \GuzzleHttp\Client $client
-     * @param string             $apiKey
+     * @param string             $apiToken
      * @param string             $apiVersion
      */
     public function __construct($apiToken = null, $apiVersion = 'v1')
@@ -27,15 +27,15 @@ class Sqreen
     }
 
     /**
-     * @param string $apiKey
+     * @param string $apiToken
      *
      * @return string
      */
-    public function connect($apiKey)
+    public function connect($apiToken)
     {
-        $this->apiKey = $apiKey;
+        $this->apiToken = $apiToken;
 
-        return $this->apiKey;
+        return $this->apiToken;
     }
 
     /**
