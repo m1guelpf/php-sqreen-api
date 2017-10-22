@@ -14,28 +14,28 @@ class Sqreen
 
     /**
      * @param \GuzzleHttp\Client $client
-     * @param string             $apiKey
+     * @param string             $apiToken
      * @param string             $apiVersion
      */
-    public function __construct($apiKey = null, $apiVersion = 'v1')
+    public function __construct($apiToken = null, $apiVersion = 'v1')
     {
         $this->client = new Client();
 
         $this->apiToken = $apiToken;
 
-        $this->baseUrl = 'https://api.sqreen.io'.$apiVersion.'/api';
+        $this->baseUrl = 'https://api.sqreen.io/'.$apiVersion;
     }
 
     /**
-     * @param string $apiKey
+     * @param string $apiToken
      *
      * @return string
      */
-    public function connect($apiKey)
+    public function connect($apiToken)
     {
-        $this->apiKey = $apiKey;
+        $this->apiToken = $apiToken;
 
-        return $this->apiKey;
+        return $this->apiToken;
     }
 
     /**
@@ -65,7 +65,7 @@ class Sqreen
      *
      * @return array
      */
-    public function email(string $email)
+    public function emails($email)
     {
         return $this->get('/emails/'.$email);
     }
@@ -75,10 +75,42 @@ class Sqreen
      *
      * @return array
      */
-    public function ip(string $ip)
+    public function ips($ip)
     {
         return $this->get('/ips/'.$ip);
     }
+
+    /**
+     * @param string $method HTTP method
+     * @param string $resource Resource to invoke at Sqreen API
+     * @param array  $query Request query string to pass in the URL
+     * @param array  $rawData Request body
+     *
+     * @return array
+     */
+    protected function handleCall($method, $resource, array $query, array $rawData)
+    {
+        $data['headers'] = [
+          'X-API-Key' => $this->apiToken,
+          'User-Agent' => 'php-sqreen-api'
+        ];
+
+        if(!empty($query)) {
+          $data['query'] = $query;
+        }
+
+        if(!empty($rawData)) {
+          $data['json'] = $rawdata;
+        }
+
+        $results = $this->client
+            ->request($method, "{$this->baseUrl}{$resource}", $data)
+            ->getBody()
+            ->getContents();
+
+        return json_decode($results, true);
+    }
+
 
     /**
      * @param string $resource
@@ -88,14 +120,7 @@ class Sqreen
      */
     protected function get($resource, array $query = [])
     {
-        $data['headers'] = ['X-API-Key' => $this->apiToken, 'User-Agent' => 'php-sqreen-api'];
-        $data['query'] = $query;
-        $results = $this->client
-            ->get("{$this->baseUrl}{$resource}", $data)
-            ->getBody()
-            ->getContents();
-
-        return json_decode($results, true);
+      return $this->handleCall("GET", $resource, $query, []);
     }
 
     /**
@@ -104,16 +129,9 @@ class Sqreen
      *
      * @return array
      */
-    protected function post($resource, array $rawdata = [])
+    protected function post($resource, array $rawData = [])
     {
-        $data['headers'] = ['X-API-Key' => $this->apiToken, 'User-Agent' => 'php-sqreen-api'];
-        $data['json'] = $rawdata;
-        $results = $this->client
-            ->post("{$this->baseUrl}{$resource}", $data)
-            ->getBody()
-            ->getContents();
-
-        return json_decode($results, true);
+      return $this->handleCall("POST", $resource, [], $rawData);
     }
 
     /**
@@ -122,16 +140,9 @@ class Sqreen
      *
      * @return array
      */
-    protected function put($resource, array $rawdata = [])
+    protected function put($resource, array $rawData = [])
     {
-        $data['headers'] = ['X-API-Key' => $this->apiToken, 'User-Agent' => 'php-sqreen-api'];
-        $data['json'] = $rawdata;
-        $results = $this->client
-            ->request('PUT', "{$this->baseUrl}{$resource}", $data)
-            ->getBody()
-            ->getContents();
-
-        return json_decode($results, true);
+        return $this->handleCall("PUT", $resource, [], $rawData);
     }
 
     /**
@@ -140,15 +151,8 @@ class Sqreen
      *
      * @return array
      */
-    public function delete($resource, array $rawdata = [])
+    public function delete($resource, array $rawData = [])
     {
-        $data['headers'] = ['X-API-Key' => $this->apiToken, 'User-Agent' => 'php-sqreen-api'];
-        $data['json'] = $rawdata;
-        $results = $this->client
-            ->request('DELETE', "{$this->baseUrl}{$resource}", $data)
-            ->getBody()
-            ->getContents();
-
-        return json_decode($results, true);
+        return $this->handleCall("DELETE", $resource, [], $rawData);
     }
 }

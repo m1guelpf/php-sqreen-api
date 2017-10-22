@@ -7,6 +7,10 @@
 
 This package makes it easy to interact with [the Sqreen API](https://doc.sqreen.io/reference).
 
+## Requirements
+
+This package requires PHP >= 5.5.
+
 ## Installation
 
 You can install the package via composer:
@@ -33,12 +37,12 @@ $sqreen->connect('YOUR_SQREEN_API_TOKEN');
 
 ### Get Email info
 ``` php
-$sqreen->email($email);
+$sqreen->emails($email);
 ```
 
 ### Get IP info
 ``` php
-$sqreen->ip($ip);
+$sqreen->ips($ip);
 ```
 
 ### Get the Guzzle Client
