@@ -9,14 +9,14 @@ This package makes it easy to interact with [the Sqreen API](https://doc.sqreen.
 
 ## Requirements
 
-This package requires PHP >= 5.5 or PHP >= 7.
+This package requires PHP >= 5.5.
 
 ## Installation
 
 You can install the package via composer:
 
 ``` bash
-composer require m1guelpf/sqreen-api dev-master
+composer require m1guelpf/sqreen-api
 ```
 
 ## Usage
